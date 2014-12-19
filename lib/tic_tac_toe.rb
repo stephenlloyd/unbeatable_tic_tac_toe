@@ -5,8 +5,7 @@
  	attr_reader :grid, :opponent, :turn
 
  	def initialize opponent
- 		@grid = Array.new(9)
- 		@opponent, @turn = opponent, opponent
+ 		@opponent, @turn, @grid = opponent, opponent, Array.new(9)
  	end
 
  	def winner?
@@ -35,10 +34,8 @@
  		!sections.compact.empty?
  	end
 
-
  	def only_one_type?(sections)
  		sections.flatten.uniq.count == 1
-
  	end
 
  	def two_marked_the_same?(route)
@@ -59,8 +56,11 @@
  	end
 
  	def best_position
- 		return last_cell_in_section if last_cell_in_section
- 		cells_with_possible_routes.sort{|a,b|b[:directions] <=> a[:directions]}.first[:index]
+ 		last_cell_in_section ? last_cell_in_section : route_with_most_options_to_win
+ 	end
+
+ 	def route_with_most_options_to_win
+ 		 	cells_with_possible_routes.sort{|a,b|b[:directions] <=> a[:directions]}.first[:index]
  	end
 
  	def cells_with_possible_routes
@@ -84,10 +84,19 @@
  	end
 
  	def all_routes
- 		row_box_indexes = [*0..8].each_slice(3).to_a
- 		colum_box_indexes = row_box_indexes.transpose
- 		diagonal_indexes = [[0,4,8],[2,4,6]]
- 		row_box_indexes + colum_box_indexes + diagonal_indexes
+ 		row_indexes + column_indexes + diagonal_indexes
+ 	end
+
+ 	def row_indexes
+ 		[*0..8].each_slice(3).to_a
+ 	end
+
+ 	def column_indexes
+ 		row_indexes.transpose
+ 	end
+
+ 	def diagonal_indexes
+ 		[[0,4,8],[2,4,6]]
  	end
 
  end
