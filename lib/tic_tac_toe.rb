@@ -22,10 +22,6 @@
  		switch_turns 
  	end
 
- 	def take_turn
- 		self.go(best_position)
- 	end
-
  	def all_marked_the_same?(sections)
  		only_one_type?(sections) and none_are_nil?(sections)
  	end
@@ -60,7 +56,7 @@
  	end
 
  	def route_with_most_options_to_win
- 		 	cells_with_possible_routes.sort{|a,b|b[:directions] <=> a[:directions]}.first[:index]
+ 		cells_with_possible_routes.sort{|a,b|b[:directions] <=> a[:directions]}.first[:index]
  	end
 
  	def cells_with_possible_routes
