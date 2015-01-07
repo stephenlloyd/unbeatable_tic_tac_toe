@@ -56,7 +56,7 @@
  	end
 
  	def route_with_most_options_to_win
- 		cells_with_possible_routes.sort{|a,b|b[:directions] <=> a[:directions]}.first[:index]
+ 		cells_with_possible_routes.max{|a,b|a[:directions] <=> b[:directions]}[:index]
  	end
 
  	def cells_with_possible_routes
