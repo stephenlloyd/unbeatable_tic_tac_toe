@@ -60,7 +60,7 @@
  	end
 
  	def cells_with_possible_routes
- 		(0..9).map{|index| {index: index, directions: directions_to_win_count(index)}}
+ 		(0..8).map{|index| {index: index, directions: directions_to_win_count(index)}}
  	end
 
  	def directions_to_win_count index
