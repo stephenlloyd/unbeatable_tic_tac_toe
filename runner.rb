@@ -11,7 +11,7 @@ puts "please put the index (0 indexed) of the square you want to hit\n or type '
 
 shot = gets.chomp
 
-until game.over? or  shot == 'exit'
+until game.winner? or  shot == 'exit'
 	game.go shot.to_i
 	game.take_turn
 	puts Terminal::Table.new :rows => game.grid.each_slice(3).to_a
