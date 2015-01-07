@@ -64,7 +64,7 @@
  	end
 
  	def directions_to_win_count index
- 		routes = all_routes.select{|section| section if (section.include? index) unless route_blocked?(section)}.count
+ 		all_routes.select{|section| section if (section.include? index) unless route_blocked?(section)}.count
  	end
 
  	def route_blocked? route
