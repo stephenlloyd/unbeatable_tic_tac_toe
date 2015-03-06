@@ -46,7 +46,7 @@ describe TicTacToe do
 
 	it "will take a turn after the person has taken a go" do
 		game.send(:go,1)
-		game.take_turn
+		game.go
 		expect(game.grid.select{|i| i =="o"}).to eq ["o"]
 	end
 

@@ -16,7 +16,7 @@
  		all_routes.map{|route|route.map{|index|grid[index]}}
  	end
 
- 	def go position
+ 	def go position = best_position
  		raise "Can't, games over" if winner?
  		grid[position] = marker
  		switch_turns
@@ -47,10 +47,6 @@
  		@turn = (turn == opponent ? self : opponent)
  	end
 
- 	def take_turn
- 		go(best_position)
- 	end
-
  	def best_position
  		last_cell_in_section ? last_cell_in_section : route_with_most_options_to_win
  	end
@@ -60,7 +56,7 @@
  	end
 
  	def cells_with_possible_routes
- 		(0..8).map{|index| {index: index, directions: directions_to_win_count(index)}}
+ 		(0..grid.count - 1).map{|index| {index: index, directions: directions_to_win_count(index)}}
  	end
 
  	def directions_to_win_count index
