@@ -68,7 +68,7 @@
  	end
 
  	def last_cell_in_section
- 		routes_missing_one_value.reject{|index| grid[index]}.first
+ 		routes_missing_one_value.reject{|index| grid[index]}.last
  	end
 
  	def routes_missing_one_value

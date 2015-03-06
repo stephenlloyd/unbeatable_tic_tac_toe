@@ -5,4 +5,6 @@ Tic Tac Toe is a game with the goal of getting 3 of the same x or o in a row, co
 
 to run the tests type 'rspec'
 
-To run the game in the terminal type 'ruby runner.rb' which will give you an interactive game to play. 
+To run the game in the terminal type 'ruby runner.rb' which will give you an interactive game to play.
+
+This game won't always win but you should never be able to beat it.
