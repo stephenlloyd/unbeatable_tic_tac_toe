@@ -31,7 +31,7 @@
  	end
 
  	def only_one_type?(sections)
- 		sections.flatten.uniq.count == 1
+ 		sections.uniq.count == 1
  	end
 
  	def two_marked_the_same?(route)
