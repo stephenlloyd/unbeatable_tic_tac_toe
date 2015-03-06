@@ -4,8 +4,8 @@
 
  	attr_reader :grid, :opponent, :turn
 
- 	def initialize opponent
- 		@opponent, @turn, @grid = opponent, opponent, Array.new(9)
+ 	def initialize opponent, grid
+ 		@opponent, @turn, @grid = opponent, opponent, grid
  	end
 
  	def winner?

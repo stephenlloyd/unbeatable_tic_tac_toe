@@ -1,7 +1,7 @@
 require 'tic_tac_toe'
 describe TicTacToe do
 
-	let(:game){TicTacToe.new("bob")}
+	let(:game){TicTacToe.new("bob", Array.new(9))}
 
 	it "can have a grid of 9" do
 		expect(game.grid.count).to eq 9
