@@ -13,7 +13,7 @@ shot = gets.chomp
 
 until game.winner? or  shot == 'exit'
 	game.go shot.to_i
-	game.take_turn
+	game.go
 	puts Terminal::Table.new :rows => game.grid.each_slice(3).to_a
 	puts "Your go!"
 	shot = gets.chomp
