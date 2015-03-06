@@ -30,7 +30,7 @@ describe TicTacToe do
 		expect(game.opponent).to eq "bob"
 	end
 
-	it "will know whos turn it is" do 
+	it "will know whos turn it is" do
 		expect(game.turn).to eq "bob"
 	end
 
@@ -47,7 +47,7 @@ describe TicTacToe do
 	it "will take a turn after the person has taken a go" do
 		game.send(:go,1)
 		game.take_turn
-		expect(game.grid.select{|i| i =="o"}).to eq ["o"] 
+		expect(game.grid.select{|i| i =="o"}).to eq ["o"]
 	end
 
 	it "won't let a go happen if the game has a winner" do
@@ -80,14 +80,18 @@ describe TicTacToe do
 		expect(game.route_blocked?(route)).to eq false
 	end
 
-	it "should return the remainding index of a board which is about to win or lose" do 
+	it "should return the remainding index of a board which is about to win or lose" do
 		fill_indexes([0,1], with: "x")
 		expect(game.last_cell_in_section).to eq 2
 	end
 
-	it "should either block a move or win the game if it needs to " do 
+	it "should either block a move or win the game if it needs to " do
 		fill_indexes([0,6], with: "x")
 		expect(game.best_position).to eq 3
+	end
+
+	it "can get the diaganol indexes" do
+		expect(game.diagonal_indexes).to eq([[0,4,8],[6,4,2]])
 	end
 
 

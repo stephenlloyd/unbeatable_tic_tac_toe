@@ -16,10 +16,10 @@
  		all_routes.map{|route|route.map{|index|grid[index]}}
  	end
 
- 	def go position 
+ 	def go position
  		raise "Can't, games over" if winner?
  		grid[position] = marker
- 		switch_turns 
+ 		switch_turns
  	end
 
  	def all_marked_the_same?(sections)
@@ -39,7 +39,7 @@
  		values.count == 2 and values.uniq.count == 1
  	end
 
- 	def marker 
+ 	def marker
  		turn == opponent ? OPPONENT_MARKER : MARKER
  	end
 
@@ -84,7 +84,7 @@
  	end
 
  	def row_indexes
- 		[*0..8].each_slice(3).to_a
+ 		[*0..grid.count-1].each_slice(3).to_a
  	end
 
  	def column_indexes
@@ -92,7 +92,8 @@
  	end
 
  	def diagonal_indexes
- 		[[0,4,8],[2,4,6]]
+    [row_indexes.each_with_index.map{|row, index|row[index]},
+    row_indexes.reverse.each_with_index.map{|row, index|row[index]}]
  	end
 
  end
