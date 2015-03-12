@@ -1,7 +1,12 @@
 require 'tic_tac_toe'
+
 describe TicTacToe do
 
 	let(:game){TicTacToe.new("bob", Array.new(9))}
+
+	before do
+		allow(game.grid).to receive(:all_winning_indexes).and_return([[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]])
+	end
 
 	it "can have a grid of 9" do
 		expect(game.grid.count).to eq 9
@@ -64,6 +69,12 @@ describe TicTacToe do
 		expect(game.directions_to_win_count 4).to eq 4
 	end
 
+	it "doesnt plot if itself is there" do
+			fill_indexes([0], with: "x")
+			fill_indexes([4], with: "o")
+			expect(game.best_position).to eq 2
+	end
+
 	it "can know how many dirctions it can when a directions is blocked off" do
 		fill_indexes([0], with: "x")
 		expect(game.directions_to_win_count 4).to eq 3
@@ -88,10 +99,6 @@ describe TicTacToe do
 	it "should either block a move or win the game if it needs to " do
 		fill_indexes([0,6], with: "x")
 		expect(game.best_position).to eq 3
-	end
-
-	it "can get the diaganol indexes" do
-		expect(game.diagonal_indexes).to eq([[0,4,8],[6,4,2]])
 	end
 
 

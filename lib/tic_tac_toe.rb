@@ -13,30 +13,13 @@
  	end
 
  	def all_values
- 		all_routes.map{|route|route.map{|index|grid[index]}}
+ 		grid.all_winning_indexes.map{|route|route.map{|index|grid[index]}}
  	end
 
  	def go position = best_position
  		raise "Can't, games over" if winner?
  		grid[position] = marker
  		switch_turns
- 	end
-
- 	def all_marked_the_same?(sections)
- 		only_one_type?(sections) and none_are_nil?(sections)
- 	end
-
- 	def none_are_nil?(sections)
- 		!sections.compact.empty?
- 	end
-
- 	def only_one_type?(sections)
- 		sections.uniq.count == 1
- 	end
-
- 	def two_marked_the_same?(route)
- 		values = route.map{|index|grid[index]}.compact
- 		values.count == 2 and values.uniq.count == 1
  	end
 
  	def marker
@@ -51,16 +34,37 @@
  		last_cell_in_section ? last_cell_in_section : route_with_most_options_to_win
  	end
 
+  def all_marked_the_same?(sections)
+    only_one_type?(sections) and none_are_nil?(sections)
+  end
+
+  def none_are_nil?(sections)
+    !sections.compact.empty?
+  end
+
+  def only_one_type?(sections)
+    sections.uniq.count == 1
+  end
+
+  def two_marked_the_same?(route)
+    values = route.map{|index|grid[index]}.compact
+    values.count == 2 and values.uniq.count == 1
+  end
+
  	def route_with_most_options_to_win
  		cells_with_possible_routes.max{|a,b|a[:directions] <=> b[:directions]}[:index]
  	end
 
  	def cells_with_possible_routes
- 		(0..grid.count - 1).map{|index| {index: index, directions: directions_to_win_count(index)}}
+ 		available_cells.map{|index| {index: index, directions: directions_to_win_count(index)}}
  	end
 
+  def available_cells
+    grid.map.each_with_index{|cell, index| index if cell.nil?}
+  end
+
  	def directions_to_win_count index
- 		all_routes.select{|section| section if (section.include? index) unless route_blocked?(section)}.count
+ 		grid.all_winning_indexes.select{|section| section if (section.include? index) unless route_blocked?(section)}.count
  	end
 
  	def route_blocked? route
@@ -72,24 +76,7 @@
  	end
 
  	def routes_missing_one_value
- 		all_routes.select{|route| two_marked_the_same?(route)}.flatten
- 	end
-
- 	def all_routes
- 		row_indexes + column_indexes + diagonal_indexes
- 	end
-
- 	def row_indexes
- 		[*0..grid.count-1].each_slice(3).to_a
- 	end
-
- 	def column_indexes
- 		row_indexes.transpose
- 	end
-
- 	def diagonal_indexes
-    [row_indexes.each_with_index.map{|row, index|row[index]},
-    row_indexes.reverse.each_with_index.map{|row, index|row[index]}]
+ 		grid.all_winning_indexes.select{|route| two_marked_the_same?(route)}.flatten
  	end
 
  end
